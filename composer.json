@@ -1,0 +1,11 @@
+{
+    "name": "xiaohua/brave",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xiaohua",
+            "email": "coolr@foxmail.com"
+        }
+    ],
+    "require": {}
+}
