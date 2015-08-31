@@ -1,11 +1,11 @@
 {
-    "name": "huaable/brave",
+    "name": "xiaohua/brave",
     "license": "MIT",
 	"version":"1.0.0",
 	"library":"library",
     "authors": [
         {
-            "name": "huaable",
+            "name": "xiaohua",
             "email": "coolr@foxmail.com"
         }
     ],
