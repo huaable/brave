@@ -1,11 +1,16 @@
 {
     "name": "xiaohua/brave",
-    "license": "MIT",
-    "authors": [
+	"keywords": ["brave"],
+	"version": "1.0.0",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
         {
             "name": "xiaohua",
             "email": "coolr@foxmail.com"
         }
     ],
-    "require": {}
+    "require": {
+		"php": ">=5.3"
+	}
 }
