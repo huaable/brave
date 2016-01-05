@@ -2,3 +2,4 @@
 /vendor
 *assets
 *runtime
+composer.lock
