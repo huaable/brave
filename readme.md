@@ -1,11 +1,19 @@
-source/
-    项目代码开发目录
 
-source/Cms/www/
-    站点对外发布目录
+##项目代码开发目录
 
-vendor/
-    第三发扩展目录
+    source/
+
+
+
+##站点对外发布目录(需要入口文件和开启apache重写)
+
+    source/Cms/www/
+    或
+    www.test
+
+##第三发扩展目录
+
+    vendor/
 
 
 #项目运行
