@@ -23,15 +23,10 @@ class Mail
      */
     public $error;
 
-    /**
-     * @param bool $config
-     * @return Mail
-     */
-    public static function ready($config = false)
+    public function __construct($config)
     {
-        $mail = new self();
-        $mail->config = !$config ? App::$config['mail'] : $config;
-        return $mail;
+        $this->config = $config;
+        return $this;
     }
 
     /**
@@ -40,7 +35,7 @@ class Mail
      * @param $content
      * @return bool
      */
-    public function getSend($to, $title, $content)
+    public function send($to, $title, $content)
     {
 
         try {
@@ -62,12 +57,10 @@ class Mail
 
             //mailer
             $mailer = \Swift_Mailer::newInstance($transport);
-
             $mailer->send($message);
-            return true;
-        } catch (\Swift_ConnectionException $e) {
+
+        } catch (\Swift_SwiftException $e) {
             $this->error = $e->getMessage();
-            return false;
         }
 
     }

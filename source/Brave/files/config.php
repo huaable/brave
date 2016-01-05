@@ -2,7 +2,7 @@
 
 /**
  * 默认全局配置数组 Array
- * 读取配置 \Brave\App::$config
+ * 读取配置 \Brave\App::$app
  */
 return [
 
@@ -13,7 +13,7 @@ return [
     'entry.file'   => null,
 
     //开启本地调试
-    'debug'        => false,
+    'debug'        => true,
 
     //时区
     'timezone'     => 'Asia/Chongqing',
@@ -61,7 +61,7 @@ return [
    ],
 
     // 其他数据库配置
-    // \Brave\DB::connect(\Brave\App::$config['db.xxx'])->
+    // \Brave\DB::connect(\Brave\App::$app['db.xxx'])->
 
    'db.xxx' => [
        'type' => 'mysql',

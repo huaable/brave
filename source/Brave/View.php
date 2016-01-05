@@ -27,11 +27,11 @@ class View
         if (strpos($_viewFile_, '@') === 0) {
             //在当前模块下找
             $module = App::$request->getModule() ? App::$request->getModule() . '/' : '';
-            $viewsDir = App::$config['path'] . DIRECTORY_SEPARATOR . $module;
+            $viewsDir = App::$app['path'] . DIRECTORY_SEPARATOR . $module;
             return self::renderFile($viewsDir . substr($_viewFile_, 1), $_data_, $_return_);
         } else {
             //在项目中找
-            return self::renderFile(App::$config['path'] . DIRECTORY_SEPARATOR . $_viewFile_, $_data_, $_return_);
+            return self::renderFile(App::$app['path'] . DIRECTORY_SEPARATOR . $_viewFile_, $_data_, $_return_);
         }
     }
 

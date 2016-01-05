@@ -77,7 +77,7 @@ class Request
             $module = implode('/', $pathInfo);
         }
 
-        foreach (App::$config['module.alias'] as $realModule => $alias) {
+        foreach (App::$app['module.alias'] as $realModule => $alias) {
             if (strtolower($module) == strtolower($alias)) {
                 $module = rtrim($realModule, '/\\');
             }
@@ -86,7 +86,7 @@ class Request
         self::$request->pathInfo['module'] = $module;
     }
 
-    public function getParam($key, $default = null)
+    public function get($key, $default = null)
     {
         $value = self::query($key);
         if ($value == null) {

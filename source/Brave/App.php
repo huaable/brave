@@ -1,6 +1,9 @@
 <?php
 
 namespace Brave;
+
+use Pimple\Container;
+
 header("Content-type: text/html; charset=utf-8");
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'files/functions.php';
 
@@ -8,13 +11,8 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'files/functions.php';
  * Class App
  * @package Brave
  */
-class App
+class App extends Container
 {
-    /**
-     * @var array
-     */
-    public static $config = [];
-
     /**
      * @var Request
      */
@@ -65,15 +63,14 @@ class App
      * @param array $config
      * @return App
      */
-    public static function create(Array $config = [])
+    public function __construct(Array $config = [])
     {
-        if (false == self::$app) {
-            self::$app = new self();
-            self::$config = array_replace_recursive(self::$config, include 'files/config.php', $config);
-            ksort(self::$config);
-            self::$app->baseUrl = self::getBaseUrl();
-            self::$app->siteUrl = self::getSiteUrl();
-        }
+        $config = array_replace_recursive(include 'files/config.php', $config);
+        ksort($config);
+        parent::__construct($config);
+        static::$app = $this;
+        self::$app->baseUrl = self::getBaseUrl();
+        self::$app->siteUrl = self::getSiteUrl();
         return self::$app;
     }
 
@@ -84,10 +81,15 @@ class App
     {
 
         session_start();
-        date_default_timezone_set(self::$config['timezone']);
+        date_default_timezone_set(self::$app['timezone']);
 
-        //开启错误报告
-        ini_set('display_errors', 'Off');
+        if (self::$app['debug'] == false) {
+            //开启错误报告
+            ini_set('display_errors', 'Off');
+        } else {
+            ini_set('display_errors', 'On');
+
+        }
         error_reporting(E_ALL);
 
         //错误处理
@@ -114,7 +116,7 @@ class App
         } else {
 
             $module = $request->getModule() ? str_replace(['/', '\\'], '\\', $request->getModule() . DIRECTORY_SEPARATOR) : '';
-            $controller = basename(self::$config['path']) . '\\' . $module . 'Controllers\\' . $request->getController() . 'Controller';
+            $controller = basename(self::$app['path']) . '\\' . $module . 'Controllers\\' . $request->getController() . 'Controller';
             $controller = str_replace(['/', '\\'], '\\', $controller);
             $action = $request->getAction();
 
@@ -150,7 +152,7 @@ class App
     public static function themeUrl($file, $version = null)
     {
         $wwwDir = 'www';
-        $src = self::$config['path'] . '/' . $wwwDir . '/' . $file;
+        $src = self::$app['path'] . '/' . $wwwDir . '/' . $file;
         $dstDir = 'assets/' . md5(self::$request->getModule() . dirname($file));
         $dstFile = $dstDir . '/' . basename($file);
         if (file_exists($src)) {

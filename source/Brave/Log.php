@@ -69,7 +69,7 @@ class Log
      */
     protected static function getFile($type)
     {
-        $path = App::$config['log.path'] . DIRECTORY_SEPARATOR;
+        $path = App::$app['log.path'] . DIRECTORY_SEPARATOR;
         $file = $path . lcfirst($type) . '.log';
         if (!file_exists(dirname($file))) {
             if (!@mkdir(dirname($file), 0777, true)) {

@@ -7,7 +7,7 @@ class FileCache
 {
     protected static function getFile($name)
     {
-        return App::$config['cache.path'] . DIRECTORY_SEPARATOR . md5($name);
+        return App::$app['cache.path'] . DIRECTORY_SEPARATOR . md5($name);
     }
 
     public static function  set($name, $value, $expire = 0, $dependency = 0)

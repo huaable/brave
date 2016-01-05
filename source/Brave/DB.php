@@ -9,17 +9,17 @@ class DB extends PDO
     protected static $instances = array();
 
     protected static $config = [
-         'type' => 'mysql',
-         'host' => 'localhost',
-         'dbname' => 'test',
-         'username' => 'root',
-         'password' => '',
-         'charset' => 'utf8',
+        'type'     => 'mysql',
+        'host'     => 'localhost',
+        'dbname'   => 'test',
+        'username' => 'root',
+        'password' => '',
+        'charset'  => 'utf8',
     ];
 
     public static function connect($config = false)
     {
-        $config = self::$config = !$config ? App::$config['db'] : $config;
+        $config = self::$config = !$config ? App::$app['db'] : $config;
         $id = "{$config['type']}{$config['host']}{$config['dbname']}{$config['username']}{$config['password']}";
         if (isset(self::$instances[$id])) {
             return self::$instances[$id];
@@ -31,9 +31,10 @@ class DB extends PDO
             self::$instances[$id] = $instance;
 
             return $instance;
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             //in the event of an error record the error to ErrorLog.html
             Log::error($e);
+            return null;
         }
     }
 
@@ -62,8 +63,8 @@ class DB extends PDO
     }
 
     /**
-     * @param $table
-     * @param $where
+     * @param     $table
+     * @param     $where
      * @param int $limit
      * @return int
      */
@@ -143,9 +144,9 @@ class DB extends PDO
 
 
     /**
-     * @param $sql
-     * @param array $array
-     * @param int $fetchMode
+     * @param        $sql
+     * @param array  $array
+     * @param int    $fetchMode
      * @param string $class
      * @return mixed
      */
