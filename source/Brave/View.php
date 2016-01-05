@@ -23,7 +23,6 @@ class View
 
     public static function render($_viewFile_, $_data_ = [], $_return_ = false)
     {
-
         if (strpos($_viewFile_, '@') === 0) {
             //在当前模块下找
             $module = App::$request->getModule() ? App::$request->getModule() . '/' : '';

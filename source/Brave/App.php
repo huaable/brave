@@ -173,11 +173,11 @@ class App extends Container
      * @param  string $method
      * @return callable
      */
-    //    public static function controller($className, $method)
-    //    {
-    //        return function () use ($className, $method) {
-    //            $model = new $className();
-    //            $model->$method(App::$request);
-    //        };
-    //    }
+//    public static function controller($className, $method)
+//    {
+//        return function () use ($className, $method) {
+//            $model = new $className();
+//            $model->$method(App::$request);
+//        };
+//    }
 }
